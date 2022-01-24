@@ -21,17 +21,17 @@ func SomeClient(client *http.Client, address net.Addr) *api {
 	}
 }
 
-func (api *api) SomeComplexCalls(ctx context.Context) error {
-	if err := api.someNetworkOp(ctx, 10*time.Second); err != nil {
+func (api *api) SomeSlowOperations(ctx context.Context) error {
+	if err := api.slowOperation(ctx, 10*time.Second); err != nil {
 		return err
 	}
-	if err := api.someNetworkOp(ctx, 10*time.Second); err != nil {
+	if err := api.slowOperation(ctx, 10*time.Second); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (api *api) someNetworkOp(ctx context.Context, wait time.Duration) error {
+func (api *api) slowOperation(ctx context.Context, wait time.Duration) error {
 	waitRequest := strings.NewReader(fmt.Sprintf("%d", int(wait.Seconds())))
 	request, err := http.NewRequestWithContext(ctx, "GET", api.serverAddress, waitRequest)
 	if err != nil {

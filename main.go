@@ -25,6 +25,6 @@ func main() {
 	timeout, cancelFunc := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancelFunc()
 
-	err = aClient.SomeComplexCalls(timeout)
+	err = aClient.SomeSlowOperations(timeout)
 	fmt.Printf("%v\n", err)
 }
